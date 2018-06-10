@@ -25,7 +25,7 @@
                         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Danh mục tìm
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" id="Th_DanhMuc">
                             <li>
                                 <a href="#">HTML</a>
                             </li>
@@ -40,7 +40,7 @@
                     <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search" style="width: 400px; margin-left: 10px">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
                 </form>
-                <a href="#" style="margin-left: 290px">Trợ giúp</a>
+                <p id="Th_user"></p>
             </nav>
 
 
@@ -56,7 +56,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item ">
-                        <a class="nav-link" href="#" style="margin-left: 25px">Trang chủ
+                        <a class="nav-link" href="MH_TrangChu.html" style="margin-left: 25px">Trang chủ
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -135,36 +135,47 @@
                                 <div class="col-sm-12 col-md-12">
                                     <form class="form-horizontal" id="registerForm">
                                         <div class="form-group">
-                                            <label for="txtUserName" class="col-sm-2 control-label">Tên tài khoản:</label>
+                                            <label for="Th_TaiKhoan" class="col-sm-2 control-label">Tên tài khoản:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="txtUserName" name="UID" placeholder="Steve">
+                                                <input type="text" class="form-control" id="Th_TaiKhoan" name="TaiKhoan" placeholder="nvan">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="txtPassword" class="col-sm-2 control-label">Mật khẩu</label>
+                                            <label for="Th_MatKhauDK" class="col-sm-2 control-label">Mật khẩu</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="PWD" id="txtPassword" placeholder="Password">
+                                                <input type="password" class="form-control" name="MatKhauDK" id="Th_MatKhauDK" placeholder="Nhập mật khẩu">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="txtConfirmPWD" class="col-sm-2 control-label">Nhập lại mật khẩu</label>
+                                            <label for="Th_XanNhanMatKhau" class="col-sm-2 control-label">Nhập lại mật khẩu</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="ConfirmPWD" id="txtConfirmPWD" placeholder="Password">
+                                                <input type="password" class="form-control" name="XacNhanMatKhau" id="Th_XanNhanMatKhau" placeholder="Nhập lại mật khẩu">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="txtName" class="col-sm-2 control-label">Họ tên</label>
+                                            <label for="Th_HoTen" class="col-sm-2 control-label">Họ tên</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="FullName" id="txtName" placeholder="Steve">
+                                                <input type="text" class="form-control" name="HoTen" id="Th_HoTen" placeholder="Nguyễn Văn A">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="txtEmail" class="col-sm-2 control-label">Gmail</label>
+                                            <label for="Th_GmailDK" class="col-sm-2 control-label">Gmail</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="Gmail" id="txtGmail" placeholder="steve.jobs@apple.com">
+                                                <input type="text" class="form-control" name="GmailDK" id="Th_GmailDK" placeholder="nva@gmail.com">
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="Th_DiaChi" class="col-sm-2 control-label">Địa chỉ</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="Th_DiaChi" name="DiaChi" placeholder="Nhập địa chỉ">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Th_sdt" class="col-sm-2 control-label">Số điện thoại</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="Th_sdt" name="sdt" placeholder="Nhập số điện thoại">
+                                            </div>
+                                        </div>        
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button id="btnRegister" type="submit" class="btn btn-success">
@@ -184,10 +195,10 @@
                 </div>
             </div>
             <div class="tab-pane" id="forgetpass" role="tabpanel" aria-labelledby="messages-tab">
-                <form>
+                <form id="forgetForm">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Nhập gmail:</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <label for="Th_Gmail">Nhập gmail:</label>
+                      <input type="email" class="form-control" id="Th_Gmail" name="Gmail" aria-describedby="emailHelp" placeholder="Enter email">
                       
                     </div>
                     
