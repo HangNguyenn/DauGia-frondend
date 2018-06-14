@@ -2,9 +2,10 @@ $(function () {
     $('#loginForm')
         .submit(function (event) {
             event.preventDefault();
-            var Ten = $('Th_TenTK').val();
-            var pass = $('Th_MatKhau').val();
-            if (TenTK.length === 0) {
+            Ten = Th_TenTK.value;
+            
+            pass = Th_MatKhau.value;
+            if (Th_TenTK.length === 0) {
                 alert('Tên tài khoản không để trống!');
                 return;
             };
@@ -21,36 +22,58 @@ $(function () {
                 contentType: 'application/json',
                 data: JSON.stringify(body)
             }).done(function (data) {
-                localStorage.setItem("user", data.TenTK);
-                localStorage.setItem("loaiTK", data.LoaiTK);
-                // Retrieve
-                //Th_user.value= localStorage.getItem("user");
-                document.getElementById("Th_user").innerHTML = localStorage.getItem("user");
-
+                if (data.TinhTrang == 'chuakichhoat') {
+                    alert('Tài khoản chưa kích hoạt. Vui lòng xác nhận Gmail!')
+                    localStorage.setItem("user", '');
+                    localStorage.setItem("loaiTK", '');
+                    localStorage.setItem("tinhTrang", '');
+                    localStorage.setItem("Gmail", '');
+                    return;
+                }
+                else {
+                    localStorage.setItem("user", data.TenTK);
+                    localStorage.setItem("loaiTK", data.LoaiTK);
+                    localStorage.setItem("tinhTrang", data.TinhTrang);
+                    localStorage.setItem("Gmail", data.Gmail);
+                    alert("Đăng nhập thành công!");
+                    return;
+                }
+                // // Retrieve
+                // //Th_user.value= localStorage.getItem("user");
+                // document.getElementById("Th_user").innerHTML = localStorage.getItem("user");
+               
 
             }).fail(function (xhr, textStatus, error) {
-                console.log(textStatus);
-                console.log(error);
                 console.log(xhr);
+               
+                if(xhr.responseJSON.message == "nouser"){
+                    alert('Tài khoản chưa tồn tại!');
+                    return;
+                }
+                if(xhr.responseJSON.message == "wrongpass"){
+                    alert('Mật khẩu không đúng!');
+                    return;
+                }
+                console.log("Mat khau khong dung")
             });
         })
 
         .validate({
             rules: {
 
-                TenTK: {
+                TenTKDN: {
                     required: true
                 },
-                MatKhau: {
+                MatKhauDN: {
                     required: true
 
                 }
             },
             messages: {
-                TenTK: {
+                TenTKDN: {
                     required: 'Tài khoản không được để trống'
                 },
-                MatKhau: {
+                MatKhauDN: {
                     required: 'Mật khẩu không để trống'
 
                 }
@@ -74,22 +97,29 @@ $(function () {
     $('#registerForm')
         .submit(function (event) {
             event.preventDefault();
-            TaiKhoan = $('Th_TaiKhoan').val();
-            MatKhauDK = $('Th_MatKhauDK').val();
-            HoTenDK = $('Th_HoTen').val();
-            GmailDK = $('Th_GmailDK').val();
-            DiaChiDK = $('Th_DiaChi').val();
-            sdt = $('Th_sdt').val();
+            var TaiKhoanDK = Th_TaiKhoan.value;
+            var MatKhauDK = Th_MatKhauDK.value;
+            GmailDK = Th_GmailDK.value;
 
+            if (Th_TaiKhoan.length === 0) {
+                alert('Tên tài khoản không để trống!');
+                return;
+            };
+            if (Th_MatKhauDK.length === 0) {
+                alert('Mật khẩu không để trống!');
+                return;
+            };
+
+            if (Th_GmailDK.length === 0) {
+                alert('Mail đăng nhập không để trống!');
+                return;
+            };
             var body = {
-                TenTK: TaiKhoan,
+                TenTK: TaiKhoanDK,
                 MatKhau: MatKhauDK,
-                SDT: sdt,
-                DiaChi: DiaChiDK,
-                HoTen: HoTenDK,
                 Gmail: GmailDK
-
             }
+
             $.ajax({
                 url: 'http://localhost:3000/TaiKhoan/register',
                 dataType: 'json',
@@ -99,13 +129,13 @@ $(function () {
                 contentType: 'application/json',
                 data: JSON.stringify(body)
             }).done(function (data) {
-                // console.log(data);
-                alert('Added');
-
+                alert(`Đăng ký thành công! Mời xác nhận gmail: ${GmailDK} `);
+                console.log('ok')
             }).fail(function (xhr, textStatus, error) {
                 console.log(textStatus);
                 console.log(error);
                 console.log(xhr);
+                console.log('fail')
             });
 
         })
@@ -121,18 +151,10 @@ $(function () {
                     required: true,
                     equalTo: $('#Th_MatKhau')
                 },
-                HoTen: {
-                    required: true
-                },
+
                 GmailDK: {
                     required: true,
                     gmail: true
-                },
-                DiaChi: {
-                    required: true
-                },
-                sdt: {
-                    required: true
                 }
             },
             messages: {
@@ -146,18 +168,10 @@ $(function () {
                     required: "Mật khẩu không để trống",
                     equalTo: "Mật khẩu nhập lại không khớp."
                 },
-                HoTen: {
-                    required: "Họ tên không hợp lệ"
-                },
+
                 GmailDK: {
                     required: "Chưa nhập gmail.",
                     gmail: "Gmail không đúng định dạng."
-                },
-                DiaChi: {
-                    required: "Địa chỉ không để trống"
-                },
-                sdt: {
-                    required: "Số ĐT không để trống"
                 }
             }
         });
@@ -180,3 +194,28 @@ $(function () {
 
 
 });
+
+$('btnLogin').on('click', function () {
+    var isValid = $('loginForm').valid();
+    if (isValid) {
+        var body = {
+            captcha_response: grecaptcha.getResponse()
+        };
+        $.ajax({
+            url: 'http://localhost:3000/TaiKhoan/captcha',
+            dataType: 'json',
+            timeout: 10000,
+
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(body)
+        }).done(function (data) {
+            console.log(data);
+            //alert('Added');
+        }).fail(function (xhr, textStatus, error) {
+            console.log(textStatus);
+            console.log(error);
+            console.log(xhr);
+        });
+    }
+})

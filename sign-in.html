@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -51,7 +52,7 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <nav class="navbar navbar-expand-lg ">
-            <a class="navbar-brand" href="#" style="margin-left: 200px">DANH MỤC SẢN PHẨM</a>
+            <a class="navbar-brand" href="MH_TrangChu.html" style="margin-left: 200px">DANH MỤC SẢN PHẨM</a>
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -67,7 +68,7 @@
                         <a class="nav-link active" href="#" style="margin-left: 10px">Đăng ký</a>
                     </li>
                     <li class="nav-item" style="margin-left: 10px" style="margin-left: 10px">
-                        <button type="button" class="btn btn-outline-success">Đăng nhập</button>
+                        <button type="button" class="btn btn-outline-success" >Đăng nhập</button>
                     </li>
                 </ul>
             </div>
@@ -102,13 +103,19 @@
                                         <div class="form-group">
                                             <label for="Th_TenTK" class="col-sm-2 control-label">Tên tài khoản:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="Th_TenTK" name="TenTK" placeholder="Nhập tên đăng nhập">
+                                                <input type="text" class="form-control" id="Th_TenTK" name="TenTKDN" placeholder="Nhập tên đăng nhập">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="Th_MatKhau" class="col-sm-2 control-label">Mật khẩu</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="MatKhau" id="Th_MatKhau" placeholder="Nhập mật khẩu">
+                                                <input type="password" class="form-control" name="MatKhauDN" id="Th_MatKhau" placeholder="Nhập mật khẩu">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Th_MatKhau" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10">
+                                                <div class="g-recaptcha" data-sitekey="6LcZVl4UAAAAAFJz5PwUmW9-58Yv-E2vIcIf4ego"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -152,30 +159,21 @@
                                                 <input type="password" class="form-control" name="XacNhanMatKhau" id="Th_XanNhanMatKhau" placeholder="Nhập lại mật khẩu">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="Th_HoTen" class="col-sm-2 control-label">Họ tên</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="HoTen" id="Th_HoTen" placeholder="Nguyễn Văn A">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="Th_GmailDK" class="col-sm-2 control-label">Gmail</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="GmailDK" id="Th_GmailDK" placeholder="nva@gmail.com">
                                             </div>
                                         </div>
+                                        
+
                                         <div class="form-group">
-                                            <label for="Th_DiaChi" class="col-sm-2 control-label">Địa chỉ</label>
+                                            <label for="" class="col-sm-2 control-label"></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="Th_DiaChi" name="DiaChi" placeholder="Nhập địa chỉ">
+                                                <div class="g-recaptcha" data-sitekey="6LcZVl4UAAAAAFJz5PwUmW9-58Yv-E2vIcIf4ego"></div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="Th_sdt" class="col-sm-2 control-label">Số điện thoại</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="Th_sdt" name="sdt" placeholder="Nhập số điện thoại">
-                                            </div>
-                                        </div>        
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <button id="btnRegister" type="submit" class="btn btn-success">
@@ -197,14 +195,14 @@
             <div class="tab-pane" id="forgetpass" role="tabpanel" aria-labelledby="messages-tab">
                 <form id="forgetForm">
                     <div class="form-group">
-                      <label for="Th_Gmail">Nhập gmail:</label>
-                      <input type="email" class="form-control" id="Th_Gmail" name="Gmail" aria-describedby="emailHelp" placeholder="Enter email">
-                      
+                        <label for="Th_Gmail">Nhập gmail:</label>
+                        <input type="email" class="form-control" id="Th_Gmail" name="Gmail" aria-describedby="emailHelp" placeholder="Enter email">
+
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary" id="btnQuenMK">Đồng ý</button>
-                  </form>
-               
+                </form>
+
             </div>
 
         </div>
@@ -214,7 +212,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
