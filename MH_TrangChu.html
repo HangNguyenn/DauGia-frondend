@@ -12,6 +12,15 @@
         crossorigin="anonymous">
     
 </head>
+<style>
+    .CHON {
+        border: 1px solid blue;
+        opacity: 0.5;
+    }
+    a {
+    text-decoration: none;
+}
+</style>
 
 <body>
     <div class="container-fluid">
@@ -23,28 +32,18 @@
 
                 <form class="form-inline" style="margin-left: 200px; ">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Danh mục tìm
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" id="Th_DanhMucTimKiem">
-                            <li>
-                                <a href="#">HTML</a>
-                            </li>
-                            <li>
-                                <a href="#">CSS</a>
-                            </li>
-                            <li>
-                                <a href="#">JavaScript</a>
-                            </li>
-                        </ul>
+                    
+                        <select class="custom-select " style="width: 200px;" id="Th_DanhMuc_TimKiem">
+                            <option selected>Danh mục</option>
+                            
+                        </select>
                     </div>
                     <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search" style="width: 400px; margin-left: 10px">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                   
                 </form>
                 <!-- <a href="#" style="margin-left: 290px">Trợ giúp</a> -->
             </nav>
-
-
         </div>
     </div>
 
@@ -71,7 +70,7 @@
                         <button type="button" class="btn btn-outline-success">Đăng nhập</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sign-in.html" style="margin-left: 10px">Sản phẩm gần thúc</a>
+                        <a class="nav-link" href="sign-in.html" style="margin-left: 10px">Sản phẩm gần kết thúc</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sign-in.html" style="margin-left: 10px">Giá tăng dần</a>
@@ -119,58 +118,14 @@
         </div>
     </div>
     <br>
+    <hr>
     <div class="5SPRaGiaNhieuNhat">
         <div class="container">
             <h5>5 SẢN PHẨM CÓ LƯỢT RA GIÁ NHIỀU NHẤT</h5>
-            <div class="row">
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-            </div>
+            <div  class="row" id="Th_5SPRaGiaNhieuNhat">
 
+            </div>
+        
 
         </div>
     </div>
@@ -233,7 +188,7 @@
         <br>
         <div class="5SPGanKetThuc">
             <div class="container">
-                <h6>5 SẢN PHẨM GIÁ CAO NHẤT</h6>
+                <h6>5 SẢN PHẨM GẦN KẾT THÚC</h6>
                 <div class="row">
                     <div class="card" style="width: 14rem; float: left;">
                         <img class="card-img-top" src="./imgs/sp/1_1.jpg">
@@ -289,10 +244,10 @@
             <div class="getAllSP">
                 <div class="container">
                     <h6> SẢN PHẨM </h6>
-                    <div class="row" style="border: 1px solid" id="Th_XemSanPham">
-                        
+                    <div id="Th_XemSanPham">
+                    
+                    
                     </div>
-
                 </div>
             </div>
 
@@ -308,7 +263,7 @@
 <<<<<<< HEAD
             <script src="./asset/me/trangchu.js"></script>
 =======
-            <script src="./asset/me/home.js"></script>
+     
 >>>>>>> 609d544d62c68b6028520f675f15527de64caf95
 
 </body>
