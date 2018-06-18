@@ -1,4 +1,9 @@
-$(function () {
+$(async function () {
+    Handlebars.registerHelper("toJSON", function (value) {
+        return JSON.stringify(value);
+    });
+
+    // Load danh mục
     $.ajax({
         url: 'http://localhost:3000/DanhMuc',
         dataType: 'json',
@@ -15,72 +20,107 @@ $(function () {
             $('#Th_DanhMuc_TimKiem').append(temp1);
         });
     });
+    // ====
 
-    $.ajax({
-        url: 'http://localhost:3000/SanPham/loadall',
-        dataType: 'json',
-        timeout: 10000
-    }).done(function (data) {
-        //console.log(data)
-        Th_XemSanPham.innerHTML = ""
-        $.each(data, function (idx, item) {
-            // console.log(item.GiaHienTai);
-            
-            // TaoTheHienSanPham()
-
-            // $('#Th_XemSanPham').append(temp1);
-            
-            var The_hien = TaoTheHienSanPham(item, Th_XemSanPham)
-            The_hien.childNodes[0].onclick = () => {
-                The_hien.childNodes[0].classList.toggle("CHON")
-                var sp = The_hien.childNodes[0].parentNode.getAttribute("data")
-                sessionStorage.setItem("xemsp", sp)
-                window.location= 'MH_XemChiTietSP.html'
-
-            }
-        
-         
-           
+    // Load danh sách sản phẩm
+    let getPromise = new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'http://localhost:3000/SanPham/loadall',
+            dataType: 'json',
+            timeout: 10000
+        }).done(function (data) {
+            resolve(data);
+        }).fail(function (xhr, textStatus) {
+            reject({ xhr: xhr, textStatus: textStatus });
         });
     });
+
+    let products;
+    try {
+        products = await getPromise;
+    } catch (errorData) {
+        console.log(errorData);
+        return;
+    }
+
+    let source = $('#sp_template').html();
+    let template = Handlebars.compile(source);
+    let html = template(products);
+    $('#Th_XemSanPham').append(html).on("click", "button[data-type='chi_tiet']", function (event) {
+        let productAsJSON = this.dataset.data;
+        sessionStorage.setItem("xemsp", productAsJSON)
+        window.location = 'MH_XemChiTietSP.html'
+    });
+    // ====
+
     $.ajax({
         url: 'http://localhost:3000/SanPham/top5LuotRaGia',
         dataType: 'json',
         timeout: 10000
     }).done(function (data) {
-        //console.log(data)
         Th_5SPRaGiaNhieuNhat.innerHTML = ""
-       
-        $.each(data, function (idx, item) {
-            // console.log(item.GiaHienTai);
-            
-            // TaoTheHienSanPham()
 
-            // $('#Th_XemSanPham').append(temp1);
-            
-            var The_hien = TaoSPRaGiaNhieuNhat(item, Th_5SPRaGiaNhieuNhat)
-            The_hien.childNodes[0].onclick = () => {
-                The_hien.childNodes[0].classList.toggle("CHON")
-                var sp = The_hien.childNodes[0].parentNode.getAttribute("data")
+        $.each(data, function (idx, item) {
+
+            var The_hien1 = TaoSPRaGiaNhieuNhat(item, Th_5SPRaGiaNhieuNhat)
+            The_hien1.childNodes[1].onclick = () => {
+                The_hien1.childNodes[1].classList.toggle("CHON")
+                var sp = The_hien1.childNodes[1].parentNode.getAttribute("data");
                 sessionStorage.setItem("xemsp", sp)
-                window.location= 'MH_XemChiTietSP.html'
+                window.location = 'MH_XemChiTietSP.html'
 
             }
-            
-            
-            
-           
+        });
+    });
+
+    $.ajax({
+        url: 'http://localhost:3000/SanPham/top5SPGiaCaoNhat',
+        dataType: 'json',
+        timeout: 10000
+    }).done(function (data) {
+        //console.log(data)
+        Th_5SPRaGiaCaoNhat.innerHTML = ""
+
+        $.each(data, function (idx, item) {
+
+            var The_hien1 = TaoSPRaGiaNhieuNhat(item, Th_5SPRaGiaCaoNhat)
+            The_hien1.childNodes[1].onclick = () => {
+                The_hien1.childNodes[1].classList.toggle("CHON")
+                var sp = The_hien1.childNodes[1].parentNode.getAttribute("data")
+                sessionStorage.setItem("xemsp", sp)
+                window.location = 'MH_XemChiTietSP.html'
+
+            }
+        });
+    });
+
+    $.ajax({
+        url: 'http://localhost:3000/SanPham/top5SPGanKetThuc',
+        dataType: 'json',
+        timeout: 10000
+    }).done(function (data) {
+        Th_5SPGanKetThuc.innerHTML = ""
+
+        $.each(data, function (idx, item) {
+
+            var The_hien1 = TaoSPRaGiaNhieuNhat(item, Th_5SPGanKetThuc)
+            The_hien1.childNodes[1].onclick = () => {
+                The_hien1.childNodes[1].classList.toggle("CHON")
+                var sp = The_hien1.childNodes[1].parentNode.getAttribute("data")
+                sessionStorage.setItem("xemsp", sp)
+                window.location = 'MH_XemChiTietSP.html'
+
+            }
         });
     });
 
 });
 
-function TaoSPRaGiaNhieuNhat(item, Th_Cha)
-{
+function TaoSPRaGiaNhieuNhat(item, Th_Cha) {
     var the_hien = document.createElement("div");
     the_hien.setAttribute("data", JSON.stringify(item));
     Th_Cha.appendChild(the_hien);
-    var chuoiHTML=`
+    var chuoiHTML = `
     <div class="card border" style="width: 14rem; float: left;">
         <img class="card-img-top" src="./imgs/sp/${item.HinhAnh1}.jpg" style="width:200px; height:200px">
         <div class="card-body">
@@ -92,7 +132,7 @@ function TaoSPRaGiaNhieuNhat(item, Th_Cha)
        
     </div>
     `
-the_hien.innerHTML= chuoiHTML;
+    the_hien.innerHTML = chuoiHTML;
     return the_hien;
 }
 
@@ -100,7 +140,7 @@ function TaoTheHienSanPham(item, Th_Cha) {
     var the_hien = document.createElement("div");
     the_hien.setAttribute("data", JSON.stringify(item));
     Th_Cha.appendChild(the_hien);
-    var giaconlai = item.ThoiGianKetThuc;
+    var gioconlai = item.ThoiGianKetThuc;
     var chuoiHTML = `<div class="row border" style="margin-top:10px">
     <div class="col-md-4">
         <img src="./imgs/sp/${item.HinhAnh1}.jpg" style="width: 350px; height: 280px">
@@ -120,7 +160,7 @@ function TaoTheHienSanPham(item, Th_Cha) {
             <br>
             <br>
             <br>
-            <p class="card-text">Thời gian còn lại: ${giaconlai}</p>
+            <p class="card-text">Thời gian còn lại: ${gioconlai}</p>
             <p class="card-text">Số lượt ra giá hiện tại:${item.SoLuotRaGia}</p>
 
             <button type="button" class="btn btn-outline-success" id="Th_Yeu_thich" >Yêu thích</button>
@@ -128,7 +168,7 @@ function TaoTheHienSanPham(item, Th_Cha) {
         
     </div>
 </div>`;
-    the_hien.innerHTML= chuoiHTML;
+    the_hien.innerHTML = chuoiHTML;
     return the_hien;
 }
 

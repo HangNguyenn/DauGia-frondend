@@ -38,8 +38,8 @@
                             
                         </select>
                     </div>
-                    <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search" style="width: 400px; margin-left: 10px">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                    <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search" style="width: 400px; margin-left: 10px" name="tb_TimKiem">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="Th_TimKiem">Tìm kiếm</button>
                    
                 </form>
                 <!-- <a href="#" style="margin-left: 290px">Trợ giúp</a> -->
@@ -119,67 +119,72 @@
     </div>
     <br>
     <hr>
+    <div class="getAllSP">
+            <div class="container">
+                <h4 style="text-align: center;"> SẢN PHẨM </h4>
+                <div id="Th_XemSanPham">
+
+                </div>
+            </div>
+        </div>
+
     <div class="5SPRaGiaNhieuNhat">
         <div class="container">
-            <h5>5 SẢN PHẨM CÓ LƯỢT RA GIÁ NHIỀU NHẤT</h5>
+            <h4 style="text-align: center">5 SẢN PHẨM CÓ LƯỢT RA GIÁ NHIỀU NHẤT</h4>
             <div  class="row" id="Th_5SPRaGiaNhieuNhat">
 
             </div>
         
-
         </div>
     </div>
     <br>
-
+    <script id="sp_template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="row border" style="margin-top:10px" data="{{toJSON this}}">
+        <div class="col-md-4">
+            <img src="./imgs/sp/{{HinhAnh1}}.jpg" style="width: 350px; height: 280px">
+        </div>
+        <div class="col-md-4">
+                <br>
+                <br>
+                <h3>{{TenSP}}</h3>
+                <p class="card-text">Giá hiện tại: {{GiaHienTai}}</p>
+                {{#if TenNguoiGiuGia}}
+                <p class="card-text">Người dùng đang giữ giá: {{TenNguoiGiuGia}}</p>
+                {{/if}}
+                {{#if GiaMuaNgay}}
+                <p class="card-text">Giá mua ngay: {{GiaMuaNgay}}</p>
+                {{/if}}
+                <button type="button" class="btn btn-outline-success">Ra giá</button>
+        </div>
+        <div class="col-md-4">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p class="card-text">Thời gian còn lại: {{ThoiDiemKetThuc}}</p>
+                <p class="card-text">Số lượt ra giá hiện tại:{{SoLuotRaGia}}</p>
+    
+                <button type="button" class="btn btn-outline-success" id="Th_Yeu_thich" >Yêu thích</button>
+                <button type="button" class="btn btn-outline-success" data-type="chi_tiet" data-data="{{toJSON this}}">Xem chi tiết</button>
+            
+        </div>
+    </div>
+    {{/each}}
+    </script>
     <div class="5SPRaGiaCaoNhat">
         <div class="container">
-            <h6>5 SẢN PHẨM GIÁ CAO NHẤT</h6>
-            <div class="row">
-                <div class="card" style="width: 14rem; float: left;">
+            <h4 style="text-align: center">5 SẢN PHẨM GIÁ CAO NHẤT</h4>
+            <div class="row" id="Th_5SPRaGiaCaoNhat">
+                <!-- <div class="card" style="width: 14rem; float: left;">
                     <img class="card-img-top" src="./imgs/sp/1_1.jpg">
                     <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
+                        <p class="card-text"><b>Điện thoại Hauwai 3e</b></p>
                         <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
+                        <button type="button" class="btn btn-primary">Xem chi tiết</button>
                     </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
-                <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-                <div class="card" style="width: 14rem; float: left;">
-                    <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                    <div class="card-body">
-                        <p class="card-text">Điện thoại Hauwai 3e</p>
-                        <p class="card-text">Giá hiện tại: 5000000</p>
-                        <button type="button" class="btn btn-outline-success">Ra giá</button>
-                        <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                    </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -188,70 +193,21 @@
         <br>
         <div class="5SPGanKetThuc">
             <div class="container">
-                <h6>5 SẢN PHẨM GẦN KẾT THÚC</h6>
-                <div class="row">
-                    <div class="card" style="width: 14rem; float: left;">
+                <h5 style="text-align: center">5 SẢN PHẨM GẦN KẾT THÚC</h5>
+                <div class="row" id="Th_5SPGanKetThuc">
+                    <!-- <div class="card" style="width: 14rem; float: left;">
                         <img class="card-img-top" src="./imgs/sp/1_1.jpg">
                         <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
+                            <p class="card-text"><b>Điện thoại Hauwai 3e</b></p>
                             <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
+                            <button type="button" class="btn btn-primary" style="width: 12rem">Xem chi tiết</button>
                         </div>
-                    </div>
-
-                    <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 14rem; float: left;">
-                        <img class="card-img-top" src="./imgs/sp/1_1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">Điện thoại Hauwai 3e</p>
-                            <p class="card-text">Giá hiện tại: 5000000</p>
-                            <button type="button" class="btn btn-outline-success">Ra giá</button>
-                            <button type="button" class="btn btn-outline-success">Yêu thích</button>
-                        </div>
-                    </div>
-
-
+                    </div> -->
                 </div>
 
             </div><br>
-            <div class="getAllSP">
-                <div class="container">
-                    <h6> SẢN PHẨM </h6>
-                    <div id="Th_XemSanPham">
-                    
-                    
-                    </div>
-                </div>
-            </div>
-
-
+           
+            
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -260,12 +216,8 @@
                 crossorigin="anonymous "></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
                 crossorigin="anonymous "></script>
-<<<<<<< HEAD
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" integrity="sha256-+JMHsXRyeTsws/tzbIh5YHQxRdKCuNjmvNcTFtY6DLc=" crossorigin="anonymous"></script>
             <script src="./asset/me/trangchu.js"></script>
-=======
-     
->>>>>>> 609d544d62c68b6028520f675f15527de64caf95
-
 </body>
 
 </html>
