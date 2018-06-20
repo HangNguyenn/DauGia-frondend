@@ -1,4 +1,7 @@
 $(async function () {
+    Handlebars.registerHelper("sum", function (value1, value2) {
+        return value1+value2;
+    });
     var sanPham = JSON.parse(sessionStorage.getItem("xemsp"));
 
     var body = {
@@ -8,11 +11,14 @@ $(async function () {
     let getLichSu = new Promise((resolve, reject) => {
         $.ajax({
             url: 'http://localhost:3000/SanPham/lichSuMoTa',
+            contentType: "application/json",
+            data: JSON.stringify({ MaSP: sanPham.MaSP }),
+            method: 'POST',
             dataType: 'json',
-            type: 'POST',
             timeout: 10000
         }).done(function (data) {
             resolve(data);
+            
         }).fail(function (xhr, textStatus) {
             reject({
                 xhr: xhr, textStatus: textStatus
@@ -27,7 +33,7 @@ $(async function () {
         console.log(errorData);
         return;
     }
-
+    console.log(lichSu);
     //hinh anh
     let getHinhAnh = new Promise((resolve, reject) => {
         $.ajax({
@@ -51,7 +57,7 @@ $(async function () {
         console.log(errorData);
         return;
     }
-
+    console.log(hinhAnh);
     console.log(sanPham);
     let source = $('#sp_XemCTSP').html();
     let template = Handlebars.compile(source);
@@ -59,6 +65,7 @@ $(async function () {
         lichSu: lichSu,
         hinhAnh: hinhAnh[0],
         sanPham: sanPham
+
     });
 
     $("#Th_ThongTinsp").empty().append(html);
@@ -118,3 +125,54 @@ $(async function () {
     //     // });
     // });
 });    
+
+
+// var date;
+// date = new Date();
+// date = date.getUTCFullYear() + '-' +
+//     ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+//     ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+//     ('00' + date.getUTCHours()).slice(-2) + ':' + 
+//     ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+//     ('00' + date.getUTCSeconds()).slice(-2);
+// console.log(date);
+function formatdate(date) {
+    date = date.getUTCFullYear() + '-' +
+    ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+    ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+    ('00' + date.getUTCHours()).slice(-2) + ':' + 
+    ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+    ('00' + date.getUTCSeconds()).slice(-2);
+return date;
+}
+
+$('#Th_DongYRaGia').on('click', function(){
+    var GiaTien= $('#Th_RaGiaTienSP').val();
+    var sanPham = JSON.parse(sessionStorage.getItem("xemsp"));
+    var masp= sanPham.MaSP;
+    var matk= sanPham.MaTK;
+    var body={
+        MaTK: matk,
+        MaSP: masp,
+        RaGia:GiaTien,
+        ThoiDiem: formatdate(new Date())
+    };
+
+    $.ajax({
+        url: 'http://localhost:3000/RaGia',
+        dataType: 'json',
+        timeout: 10000,
+
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(body)
+    }).done(function(data) {
+        // console.log(data);
+        //Xu ly
+        alert('Added');
+    }).fail(function(xhr, textStatus, error) {
+    	console.log(textStatus);
+    	console.log(error);
+    	console.log(xhr);
+    });
+})

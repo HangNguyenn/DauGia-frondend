@@ -132,10 +132,15 @@ $(function () {
                 alert(`Đăng ký thành công! Mời xác nhận gmail: ${GmailDK} `);
                 console.log('ok')
             }).fail(function (xhr, textStatus, error) {
-                console.log(textStatus);
-                console.log(error);
                 console.log(xhr);
-                console.log('fail')
+                if(xhr.responseJSON.message == "user already exist"){
+                    alert('Tài khoản đã tồn tại!');
+                    return;
+                }
+                if(xhr.responseJSON.message == "email already exist"){
+                    alert('Email này đã đăng ký!');
+                    return;
+                }
             });
 
         })

@@ -18,6 +18,7 @@ $(async function () {
 
             var temp1 = `<option value="${item.MaDM}">${item.TenDM}</option>`;
             $('#Th_DanhMuc_TimKiem').append(temp1);
+          
         });
     });
     // ====
@@ -171,5 +172,73 @@ function TaoTheHienSanPham(item, Th_Cha) {
     the_hien.innerHTML = chuoiHTML;
     return the_hien;
 }
+//Doc danh sach san pham:
 
+
+async function DocDanhSachSP()
+{
+    let getPromise = new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'http://localhost:3000/SanPham/loadall',
+            dataType: 'json',
+            timeout: 10000
+        }).done(function (data) {
+            resolve(data);
+        }).fail(function (xhr, textStatus) {
+            reject({ xhr: xhr, textStatus: textStatus });
+        });
+    });
+    
+    let DocDanhSachSP;
+    try {
+        DocDanhSachSP = await getPromise;
+        
+    } catch (errorData) {
+        console.log(errorData);
+        return;
+    }
+    console.log(DocDanhSachSP);
+    return DocDanhSachSP;
+}
+var DanhSachSP= DocDanhSachSP();
+console.log(DanhSachSP)
+
+
+
+// function TimKiemDanhMuc()
+// {
+//     d= document.getElementById("Th_DanhMuc_TimKiem").value;
+//     return d;
+// }
+$('#Th_TimKiem').on('click', function(){
+    var timSP= tb_TimKiem.value;
+    var danhmuc= document.getElementById("Th_DanhMuc_TimKiem").value;
+    function myFunction(sp){
+        return sp.TenSP.toLowerCase() == timSP.toLowerCase();
+    }
+    if(document.getElementById("Th_DanhMuc_TimKiem").value=='Danh mục' || document.getElementById("Th_DanhMuc_TimKiem").value=='')
+    {
+        var DanhSachSPTimKiem= DanhSachSP.filter(myFunction);
+    }
+    else
+    {
+        if(timSP == '' && document.getElementById("Th_DanhMuc_TimKiem").value!='Danh mục' )
+        {
+            var DanhSachSPTimKiem= DanhSachSP.find(x=>x.MaDM == document.getElementById("Th_DanhMuc_TimKiem").value);
+        }
+        else if(timSP != '' && document.getElementById("Th_DanhMuc_TimKiem").value!='Danh mục' )
+        {
+            var DanhSachSPThuocDanhMuc= DanhSachSP.find(x=>x.MaDM == document.getElementById("Th_DanhMuc_TimKiem").value);
+            var DanhSachSPTimKiem= DanhSachSPThuocDanhMuc.filter(x=> x.TenSP.toLowerCase().includes(timSP.toLowerCase()));
+        }
+    }
+    let source = $('#sp_template').html();
+    let template = Handlebars.compile(source);
+    let html = template(products);
+    $('#Th_XemSanPham').append(html).on("click", "button[data-type='chi_tiet']", function (event) {
+        let productAsJSON = this.dataset.data;
+        sessionStorage.setItem("xemsp", productAsJSON)
+        window.location = 'MH_XemChiTietSP.html'
+    });
+})
 

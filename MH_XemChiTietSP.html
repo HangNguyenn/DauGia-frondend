@@ -121,7 +121,7 @@
             </div>
             <div class="col-md-6">
                     <h4 style="color: red">Giá hiện tại: {{sanPham.GiaHienTai}}</h4> 
-                    <button type="button" class="btn btn-warning" style="width: 500px">Ra giá sản phẩm</button>
+                    
                     <div class="card">
                         <div class="card-body">
                             {{#if sanPham.GiaMuaNgay}}
@@ -131,6 +131,7 @@
                             <p class="card-text">Người bán:{{sanPham.TenNguoiDang}}</p>
                             <p class="card-text"> Điểm đánh giá:</p>
                             {{#if sanPham.TenNguoiGiuGia}}
+                            
                             <p class="card-text">Người đang giữ giá cao nhất:{{sanPham.TenNguoiGiuGia}}</p>
                             {{/if}}
                         </div>
@@ -147,15 +148,37 @@
                     <p> </p>
                     <p> </p>
                     
-                    <button type="button" class="btn btn-success" style="width: 500px">Ra giá sản phẩm</button>
-            
+                    <button type="button" class="btn btn-success" style="width: 500px" id="Th_RaGiaSP" data-toggle="modal" data-target="#myModal">Ra giá sản phẩm</button>
+                    
             </div>
         </div>
+        <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ra giá</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <label>Số tiền ra giá:</label>
+                            <input type="text" id="Th_RaGiaTienSP" value="{{sum sanPham.GiaHienTai sanPham.BuocGia}}" >
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                            <button type="button" class="btn btn-primary" id="Th_DongYRaGia">Đồng ý</button>
+                          </div>
+                        </div>
+                      </div>
+              </div>
         <div class="row">
-            {{#each lichSu}}
+            
                 <h3>Mô tả sản phẩm</h3>
-                <p>{{NgayGioDang}}</p>
-                <p>{{MoTa}}</p>
+            {{#each this.lichSu}}
+                <p>{{lichSu.NgayGioDang}}</p>
+                <p>{{lichSU.MoTa}}</p>
             {{/each}}
         </div>
     </script>
@@ -167,9 +190,11 @@
         crossorigin="anonymous "></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
         crossorigin="anonymous "></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" integrity="sha256-+JMHsXRyeTsws/tzbIh5YHQxRdKCuNjmvNcTFtY6DLc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" integrity="sha256-+JMHsXRyeTsws/tzbIh5YHQxRdKCuNjmvNcTFtY6DLc="
+        crossorigin="anonymous"></script>
     <script src="./asset/me/xemCTSP.js"></script>
+    
 
 </body>
-
+    
 </html>
